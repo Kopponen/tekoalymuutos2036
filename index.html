@@ -282,6 +282,139 @@
     .site-header { flex-direction: column; align-items: flex-start; }
     .title-area h1 { font-size: 28px; }
   }
+  .ethics-text strong { color: var(--ink); font-weight: 600; }
+
+  /* ── ENABLERS ────────────────────────────────────────── */
+  .enablers-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 600px) { .enablers-layout { grid-template-columns: 1fr; } }
+
+  .enabler-group {
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    border: 1px solid transparent;
+  }
+  .enabler-group.hard {
+    background: var(--blue-50);
+    border-color: #b5d4f4;
+  }
+  .enabler-group.soft {
+    background: var(--purple-50);
+    border-color: #CECBF6;
+  }
+  .enabler-group-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .hard .enabler-group-tag { color: var(--blue-800); }
+  .soft .enabler-group-tag { color: var(--purple-800); }
+
+  .enabler-group h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    line-height: 1.35;
+  }
+  .hard .enabler-group h4 { color: var(--blue-800); }
+  .soft .enabler-group h4 { color: var(--purple-800); }
+
+  .enabler-items { display: flex; flex-direction: column; gap: 8px; }
+  .enabler-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .enabler-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+  .hard .enabler-dot  { background: var(--blue-400); }
+  .soft .enabler-dot  { background: var(--purple-400); }
+
+  .enabler-text { font-size: 13px; color: var(--ink-soft); line-height: 1.55; }
+  .enabler-text strong { color: var(--ink); font-weight: 600; display: block; font-size: 12px; margin-bottom: 1px; }
+
+  .enablers-note {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+
+  /* ── FOOTER / SUMMARY ────────────────────────────────── */
+  footer {
+    background: var(--teal-900);
+    padding: 48px 0 40px;
+  }
+  .footer-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: center;
+  }
+  .footer-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--teal-300);
+    margin-bottom: 16px;
+  }
+  .footer-summary {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: clamp(16px, 2.5vw, 20px);
+    color: #fff;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 24px;
+  }
+  .footer-summary em {
+    color: var(--teal-300);
+    font-style: italic;
+  }
+  .footer-meta {
+    font-size: 11px;
+    color: rgba(255,255,255,.3);
+    line-height: 1.6;
+  }
+  .footer-sep {
+    width: 40px;
+    height: 1px;
+    background: rgba(255,255,255,.15);
+    margin: 20px auto;
+  }
+
+  /* ── TEKOÄLYAGENTIN ANATOMIA ────────────────────────── */
+  .anatomy-wrap { max-width: 1100px; margin: 0 auto; }
+  .anatomy-title { text-align: center; margin-bottom: 30px; }
+  .anatomy-title h2 { margin-bottom: 8px; }
+  .anatomy-title p { color: var(--ink-soft); font-size: 14px; }
+  .anatomy-layout { display: flex; align-items: center; justify-content: center; gap: 0; }
+  .anatomy-labels-left, .anatomy-labels-right { display: flex; flex-direction: column; gap: 16px; width: 280px; flex-shrink: 0; }
+  .anatomy-figure { width: 320px; display: flex; justify-content: center; flex-shrink: 0; }
+  .anatomy-card { background: #fff; border-radius: 14px; padding: 14px 16px; border: 1.5px solid transparent; box-shadow: var(--shadow); }
+  .anatomy-badge { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 17px; margin-bottom: 8px; }
+  .anatomy-card-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+  .anatomy-card-meta { font-family: 'Libre Baskerville', Georgia, serif; font-size: 17px; color: var(--ink); margin-bottom: 3px; }
+  .anatomy-card-desc { font-size: 12.5px; color: var(--ink-soft); line-height: 1.45; }
+  .anatomy-card.brain { border-color: #6366f1; } .anatomy-card.brain .anatomy-badge { background:#eef2ff; color:#6366f1; } .anatomy-card.brain .anatomy-card-title { color:#6366f1; }
+  .anatomy-card.memory { border-color: #8b5cf6; } .anatomy-card.memory .anatomy-badge { background:#f5f3ff; color:#8b5cf6; } .anatomy-card.memory .anatomy-card-title { color:#8b5cf6; }
+  .anatomy-card.senses { border-color: #0ea5e9; } .anatomy-card.senses .anatomy-badge { background:#f0f9ff; color:#0ea5e9; } .anatomy-card.senses .anatomy-card-title { color:#0ea5e9; }
+  .anatomy-card.guardrails { border-color: #f59e0b; } .anatomy-card.guardrails .anatomy-badge { background:#fffbeb; color:#f59e0b; } .anatomy-card.guardrails .anatomy-card-title { color:#f59e0b; }
+  .anatomy-card.spine { border-color: #10b981; } .anatomy-card.spine .anatomy-badge { background:#ecfdf5; color:#10b981; } .anatomy-card.spine .anatomy-card-title { color:#10b981; }
+  .anatomy-card.tools { border-color: #ef4444; } .anatomy-card.tools .anatomy-badge { background:#fef2f2; color:#ef4444; } .anatomy-card.tools .anatomy-card-title { color:#ef4444; }
+  .anatomy-footnote { text-align: center; margin-top: 22px; font-size: 12px; color: var(--ink-faint); font-style: italic; }
+  .human-figure { width: 220px; height: 520px; }
+  @media (max-width: 980px) { .anatomy-layout { flex-direction: column; } .anatomy-labels-left, .anatomy-labels-right { width: 100%; max-width: 620px; } }
 </style>
 </head>
 <body>
@@ -448,6 +581,7 @@
       <div class="af-meta">
         Tekoälymuutos 2036 · Ministeriöiden generatiivisen tekoälyn yhteistyöryhmä · Valtiovarainministeriö
       </div>
+
     </div>
   </section>
 
