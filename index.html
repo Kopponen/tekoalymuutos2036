@@ -1,198 +1,442 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tekoälymuutos 2036 – Käsiteviitekehys ja konseptit</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --ink: #0e1b18;
-      --ink-soft: #5a6d69;
-      --surface: #fafaf8;
-      --surface-2: #f1f0ec;
-      --teal-900: #04342c;
-      --teal-700: #0f6e56;
-      --teal-300: #5dcaa5;
-      --border: rgba(14, 27, 24, .12);
-      --radius: 12px;
-      --shadow: 0 2px 10px rgba(14, 27, 24, .08);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agenttinen Suomi – Käsiteviitekehys</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--ink); line-height: 1.65; }
+:root {
+  --t900: #04342C;
+  --t800: #085041;
+  --t700: #0F6E56;
+  --t600: #1D9E75;
+  --t400: #3dbf8e;
+  --t300: #5DCAA5;
+  --t100: #C5EFE0;
+  --t50:  #E8F8F2;
 
-    .topbar {
-      position: sticky; top: 0; z-index: 20;
-      background: var(--teal-900); color: #fff;
-      border-bottom: 1px solid rgba(255,255,255,.12);
-    }
-    .topbar-inner { max-width: 1120px; margin: 0 auto; padding: 10px 18px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-    .brand { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--teal-300); }
+  --b700: #0C447C;
+  --b500: #185FA5;
+  --b100: #B5D4F4;
+  --b50:  #EBF4FD;
 
-    .view-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
-    .tab-btn {
-      border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.08); color: #fff;
-      border-radius: 999px; padding: 7px 13px; font-size: 12px; cursor: pointer;
-    }
-    .tab-btn.active { background: #fff; color: var(--teal-900); border-color: #fff; font-weight: 600; }
+  --g700: #27500A;
+  --g500: #3B6D11;
+  --g100: #C0DD97;
+  --g50:  #EDF5E1;
 
-    .content { max-width: 1120px; margin: 0 auto; padding: 22px 18px 40px; }
-    .panel { display: none; }
-    .panel.active { display: block; }
+  --p700: #3C3489;
+  --p500: #534AB7;
+  --p100: #CECBF6;
+  --p50:  #F0EFFE;
 
-    .concept-strip {
-      background: #fff; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow);
-      padding: 12px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
-    }
-    .concept-strip strong { font-size: 12px; margin-right: 6px; }
-    .concept-btn {
-      border: 1px solid var(--border); background: var(--surface); border-radius: 999px;
-      padding: 6px 11px; font-size: 12px; cursor: pointer;
-    }
+  --ink:  #0D1A17;
+  --ink2: #3a5450;
+  --ink3: #6b8480;
+  --page: #f3f2ee;
+  --r: 8px;
+}
 
-    .hero {
-      background: linear-gradient(160deg, var(--teal-900), #062e24);
-      color: #fff; border-radius: 18px; padding: 42px 28px; margin-bottom: 18px;
-    }
-    .hero h1 { font-family: 'Libre Baskerville', serif; font-size: clamp(24px, 4vw, 36px); margin-bottom: 10px; }
-    .hero p { color: rgba(255,255,255,.75); max-width: 70ch; }
+html, body {
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: var(--page);
+  color: var(--ink);
+}
 
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 18px; }
-    .card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; }
-    .card h3 { font-size: 16px; margin-bottom: 6px; color: var(--teal-700); }
-    .card p { color: var(--ink-soft); font-size: 14px; }
+.page {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 18px 18px 14px;
+}
 
-    .goal-card { cursor: pointer; }
-    .goal-body { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
-    .goal-card.open .goal-body { display: block; }
-    .goal-body ul { padding-left: 18px; }
+/* ── META ────────────────────────────────────────── */
+.meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 8px;
+}
 
-    .anatomy-wrap { background: #f7f5f0; border: 1px solid var(--border); border-radius: 18px; padding: 22px; }
-    .anatomy-title { text-align: center; margin-bottom: 18px; }
-    .anatomy-title h2 { font-family: 'DM Serif Display', serif; font-size: clamp(24px, 3vw, 30px); }
-    .anatomy-layout { display: grid; grid-template-columns: 1fr 280px 1fr; gap: 14px; align-items: start; }
-    .label-card { background:#fff; border-radius: 12px; border: 1px solid var(--border); padding: 12px; margin-bottom: 10px; }
-    .label-card .t { font-size: 11px; text-transform: uppercase; color: var(--teal-700); font-weight: 700; letter-spacing: .08em; }
-    .label-card .m { font-weight: 600; margin: 2px 0; }
-    .label-card .d { color: var(--ink-soft); font-size: 13px; }
-    .figure { background:#fff; border:1px solid var(--border); border-radius: 12px; padding:10px; display:flex; justify-content:center; }
+/* ── 1. VISIO + STRATEGISET TAVOITTEET ──────────── */
+header {
+  background: var(--t900);
+  border-radius: var(--r) var(--r) 0 0;
+  overflow: hidden;
+}
 
-    @media (max-width: 980px) {
-      .anatomy-layout { grid-template-columns: 1fr; }
-    }
-  </style>
+.vision-head {
+  padding: 16px 20px 14px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  position: relative;
+}
+.v-tag   { font-size: 9.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--t300); margin-bottom: 4px; }
+.v-title { font-size: 20px; font-weight: 600; color: #fff; line-height: 1.2; }
+.v-sub   { font-size: 11px; color: rgba(255,255,255,.4); margin-top: 3px; }
+.wip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: rgba(255,255,255,.4);
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 20px;
+  padding: 3px 10px 3px 8px;
+  margin-top: 8px;
+}
+.wip-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #EF9F27;
+  animation: blink 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+.goals-label {
+  padding: 8px 20px 6px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+  text-align: center;
+}
+
+.goals {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,.06);
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.goal {
+  background: rgba(255,255,255,.04);
+  padding: 12px 13px 13px;
+}
+.g-num   { font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--t400); opacity: .8; margin-bottom: 4px; }
+.g-title { font-size: 12.5px; font-weight: 600; color: #fff; line-height: 1.35; margin-bottom: 5px; }
+.g-pts   { list-style: none; }
+.g-pts li {
+  font-size: 10.5px;
+  color: rgba(255,255,255,.42);
+  line-height: 1.5;
+  padding-left: 9px;
+  position: relative;
+}
+.g-pts li::before { content: '–'; position: absolute; left: 0; color: var(--t400); }
+
+/* ── 2. LINSSI ───────────────────────────────────── */
+.lens {
+  background: var(--t800);
+  padding: 12px 18px;
+  margin-top: 6px;
+  border-radius: var(--r);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.lens-main  { flex: 1; }
+.l-tag      { font-size: 9px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--t300); margin-bottom: 4px; }
+.l-title    { font-size: 15px; font-weight: 600; color: #fff; line-height: 1.3; }
+.l-sub      { font-size: 11px; color: rgba(255,255,255,.48); margin-top: 3px; }
+.lens-note  {
+  font-size: 10.5px;
+  color: rgba(255,255,255,.42);
+  background: rgba(255,255,255,.06);
+  border-left: 2px solid var(--t600);
+  padding: 8px 12px;
+  border-radius: 0 5px 5px 0;
+  max-width: 230px;
+  flex-shrink: 0;
+  line-height: 1.55;
+}
+.lens-note strong { color: rgba(255,255,255,.72); font-weight: 500; }
+
+/* ── 3–4. TOIMINTAMALLI + OHJAUS ─────────────────── */
+.core-outer {
+  background: var(--t50);
+  border: 2px solid var(--t100);
+  border-radius: var(--r);
+  padding: 12px;
+  margin-top: 6px;
+}
+.core-label {
+  font-size: 9px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase;
+  color: var(--t700); margin-bottom: 7px; text-align: center;
+}
+.core-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.core-gap { margin-top: 8px; }
+
+.cell { border-radius: 7px; padding: 11px 12px 9px; text-align: center; }
+.cell.action { background: var(--t700); }
+.cell.gov    { background: var(--t600); }
+
+.c-title { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.3; margin-bottom: 2px; }
+.c-sub   { font-size: 10.5px; color: rgba(255,255,255,.5); line-height: 1.45; }
+
+/* ── 5. MAHDOLLISTAJAT ───────────────────────────── */
+/* Two-column: hard left (1fr) + soft right (2fr split into 2 sub-cards) */
+.enablers {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.en-hard {
+  background: var(--b50);
+  border: 1px solid var(--b100);
+  border-radius: var(--r);
+  padding: 13px 13px 11px;
+}
+.en-hard-tag   { font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--b500); margin-bottom: 3px; }
+.en-hard-title { font-size: 13px; font-weight: 600; color: var(--b700); margin-bottom: 8px; line-height: 1.3; }
+.en-list       { list-style: none; }
+.en-list li    { font-size: 11px; color: var(--b500); line-height: 1.55; }
+.en-list li::before { content: '· '; font-weight: 700; }
+
+.en-soft {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.en-soft-wrap {
+  border-radius: var(--r);
+  padding: 13px 13px 11px;
+  border: 1px solid transparent;
+}
+.en-soft-wrap.grn  { background: var(--g50);  border-color: var(--g100); }
+.en-soft-wrap.pur  { background: var(--p50);  border-color: var(--p100); }
+
+.en-soft-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.en-soft-header {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 0 0 6px;
+  border-bottom: 1px solid rgba(0,0,0,.07);
+  margin-bottom: 2px;
+}
+.en-soft-header.grn { color: var(--g500); }
+.en-soft-header.pur { color: var(--p500); }
+
+.en-soft-tag   { font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 3px; }
+.grn .en-soft-tag  { color: var(--g500); }
+.pur .en-soft-tag  { color: var(--p500); }
+
+.en-soft-title { font-size: 13px; font-weight: 600; line-height: 1.3; margin-bottom: 7px; }
+.grn .en-soft-title { color: var(--g700); }
+.pur .en-soft-title { color: var(--p700); }
+
+.en-soft-list       { list-style: none; }
+.en-soft-list li    { font-size: 11px; line-height: 1.55; }
+.en-soft-list li::before { content: '· '; font-weight: 700; }
+.grn .en-soft-list li  { color: var(--g500); }
+.pur .en-soft-list li  { color: var(--p500); }
+
+.en-note {
+  grid-column: 1 / -1;
+  font-size: 10px;
+  color: var(--ink3);
+  text-align: center;
+  padding: 4px 0 0;
+  font-style: italic;
+}
+
+/* ── FOOTER ──────────────────────────────────────── */
+footer {
+  background: var(--t900);
+  border-radius: 0 0 var(--r) var(--r);
+  padding: 10px 20px;
+  margin-top: 6px;
+  text-align: center;
+}
+.s-text { font-size: 11.5px; color: rgba(255,255,255,.65); line-height: 1.5; }
+.s-text em { color: var(--t300); font-style: italic; }
+
+@media print {
+  body { background: #fff; }
+  .page { padding: 10px; }
+}
+</style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">Tekoälymuutos 2036</div>
-      <div class="view-tabs" role="tablist" aria-label="Näkymät">
-        <button class="tab-btn active" data-panel="panel-framework">Agenttinen Suomi – käsiteviitekehys</button>
-        <button class="tab-btn" data-panel="panel-anatomy">Tekoälyagentin anatomia</button>
-      </div>
-    </div>
+<div class="page">
+
+  <div class="meta">
+    <span>Agenttinen Suomi — Käsiteviitekehys</span>
+    <span>Tekoälymuutos 2036 · Valtiovarainministeriö · 2026</span>
   </div>
 
-  <main class="content">
-    <div class="concept-strip">
-      <strong>Konseptit:</strong>
-      <button class="concept-btn" data-panel="panel-anatomy">1) Tekoälyagentin anatomia</button>
-      <span style="font-size:12px;color:var(--ink-soft);">Lisää konsepteja voidaan lisätä samaan listaan myöhemmin.</span>
+  <!-- ── 1. VISIO + STRATEGISET TAVOITTEET ── -->
+  <header>
+    <div class="vision-head">
+      <div class="v-tag">Visio 2036</div>
+      <h1 class="v-title">Integroitu tekoäly-yhteiskunta</h1>
+      <div class="v-sub">Käsiteviitekehys rakentaa rakenteen vision syntymiselle — ei määrittele sen lopullista sisältöä</div>
+      <div class="wip"><span class="wip-dot"></span>Työn alla — kehittyvä visio</div>
     </div>
 
-    <section id="panel-framework" class="panel active" aria-label="Agenttinen Suomi - käsiteviitekehys">
-      <div class="hero">
-        <h1>Visio 2036: <em>Integroitu tekoäly-yhteiskunta</em></h1>
-        <p>Agenttinen Suomi on toimintamalli, jonka avulla julkinen hallinto saavuttaa tekoälymuutoksen strategiset tavoitteet vastuullisesti, läpinäkyvästi ja kansalaisen arkea sujuvoittaen.</p>
-      </div>
+    <div class="goals-label">Visiota ohjaavat tekoälymuutoksen strategiset tavoitteet</div>
 
-      <div class="cards">
-        <article class="card goal-card" onclick="toggleGoal(this)">
-          <h3>Tavoite 01: Sujuvoitamme asiakkaan arkea</h3>
-          <p>Proaktiiviset palvelut, keskustelevat käyttöliittymät ja saumattomat palveluketjut.</p>
-          <div class="goal-body"><ul><li>Monikanavainen palvelukokemus</li><li>Ei organisaatiosiiloja asiakkaalle</li><li>Asiointi oikeaan aikaan</li></ul></div>
-        </article>
-        <article class="card goal-card" onclick="toggleGoal(this)">
-          <h3>Tavoite 02: Nopeutamme käyttöönottoa</h3>
-          <p>Piloteista tuotantoon, yhteiset komponentit ja mitattava vaikuttavuus.</p>
-          <div class="goal-body"><ul><li>Skaalautuvat käytännöt</li><li>Yhteiset toimintamallit</li><li>Hyötyjen systemaattinen mittaus</li></ul></div>
-        </article>
-        <article class="card goal-card" onclick="toggleGoal(this)">
-          <h3>Tavoite 03: Varmistamme datan laadun</h3>
-          <p>Tietojen saatavuus, semantiikka, tietoturva ja tietosuoja.</p>
-          <div class="goal-body"><ul><li>Yhteentoimivat tietovarannot</li><li>Turvaluokiteltu käsittely</li><li>Data yhteiseksi voimavaraksi</li></ul></div>
-        </article>
-        <article class="card goal-card" onclick="toggleGoal(this)">
-          <h3>Tavoite 04: Hyödynnämme eurooppalaista kehitystä</h3>
-          <p>EU-yhteistyö, osaaminen ja digitaalinen suvereniteetti.</p>
-          <div class="goal-body"><ul><li>EU AI Act -yhteensopivuus</li><li>Yhteinen infrastruktuuri</li><li>Rahoitus ja yhteistyöverkostot</li></ul></div>
-        </article>
-      </div>
+    <div class="goals">
+      <article class="goal">
+        <div class="g-num">Tavoite 01</div>
+        <h2 class="g-title">Sujuvoitamme hallinnon asiakkaiden arkea</h2>
+        <ul class="g-pts">
+          <li>Proaktiiviset, helppokäyttöiset ja monikanavaiset palvelut</li>
+          <li>Siirtymä lomakkeista keskusteleviin käyttöliittymiin</li>
+        </ul>
+      </article>
+      <article class="goal">
+        <div class="g-num">Tavoite 02</div>
+        <h2 class="g-title">Nopeutamme tekoälyn vaikuttavaa käyttöönottoa</h2>
+        <ul class="g-pts">
+          <li>Piloteista tuotantoon</li>
+          <li>Yhteiset komponentit ja skaalautuvuus</li>
+          <li>Mitattava tuottavuus ja vaikuttavuus</li>
+        </ul>
+      </article>
+      <article class="goal">
+        <div class="g-num">Tavoite 03</div>
+        <h2 class="g-title">Huolehdimme tietojen saatavuudesta ja laadusta</h2>
+        <ul class="g-pts">
+          <li>Saatavuus, laatu ja semanttinen yhteentoimivuus</li>
+          <li>Tietosuoja, tietoturva ja turvaluokiteltu käsittely</li>
+        </ul>
+      </article>
+      <article class="goal">
+        <div class="g-num">Tavoite 04</div>
+        <h2 class="g-title">Hyödynnämme eurooppalaista kehitystä</h2>
+        <ul class="g-pts">
+          <li>EU-aloitteet, rahoitus ja yhteistyö</li>
+          <li>Eurooppalainen osaaminen ja suvereniteetti</li>
+        </ul>
+      </article>
+    </div>
+  </header>
 
-      <div class="cards">
-        <article class="card"><h3>Agenttinen toimintamalli</h3><p>Havainnointi, päätöksenteko ja itsenäinen toiminta muodostavat hallinnon uuden älykkään kerroksen.</p></article>
-        <article class="card"><h3>Ohjaus ja vastuu</h3><p>Ihminen valvoo, virkavastuu säilyy ja agenttien toimet ovat aina jäljitettäviä.</p></article>
-        <article class="card"><h3>Mahdollistajat</h3><p>Kova perusta (infra, data, yhteentoimivuus) + pehmeät edellytykset (sääntely, osaaminen, muutosjohtaminen).</p></article>
-      </div>
-    </section>
+  <!-- ── 2. AGENTTINEN SUOMI – LINSSI ── -->
+  <section class="lens" aria-labelledby="lens-title">
+    <div class="lens-main">
+      <div class="l-tag">Toimintamalli — ei visio eikä tavoite, vaan keino saavuttaa ne</div>
+      <h2 id="lens-title" class="l-title">Agenttinen Suomi – julkisen hallinnon toimintamalli tekoälyaikakaudella</h2>
+      <div class="l-sub">Hallinnon uusi älykäs kerros: federatiivinen verkosto, jossa agentit toimivat yhdessä organisaatiorajojen yli</div>
+    </div>
+    <div class="lens-note">
+      <strong>Huomio:</strong> Agenttinen Suomi ei ole visio eikä strateginen tavoite — se on linssi ja toimintamalli, jonka avulla tavoitteet saavutetaan ja visio rakennetaan.
+    </div>
+  </section>
 
-    <section id="panel-anatomy" class="panel" aria-label="Tekoälyagentin anatomia">
-      <div class="anatomy-wrap">
-        <div class="anatomy-title">
-          <h2>Tekoälyagentin anatomia</h2>
-          <p style="color:var(--ink-soft)">Agentin osat ihmismetaforan kautta</p>
-        </div>
+  <!-- ── 3+4. TOIMINTAMALLI + OHJAUS ── -->
+  <section class="core-outer" aria-label="Agenttinen toimintamalli ja ohjaus">
 
-        <div class="anatomy-layout">
-          <div>
-            <div class="label-card"><div class="t">Aivot</div><div class="m">Kielimalli</div><div class="d">Ymmärtää tehtävän, päättelee ja tuottaa vastauksen.</div></div>
-            <div class="label-card"><div class="t">Muisti</div><div class="m">Konteksti + tietovarannot</div><div class="d">Työmuisti (historia) ja pitkäkestoinen muisti (dokumentit/tietokannat).</div></div>
-            <div class="label-card"><div class="t">Aistit</div><div class="m">Sensorit ja syötteet</div><div class="d">Vastaanottaa tekstiä, kuvia, dataa, API-tietoa ja ohjeita.</div></div>
-          </div>
+    <h3 class="core-label">Agenttinen toimintamalli — miten toimitaan</h3>
+    <h3 class="core-label">Tekoälyagentin anatomia</h3>
+    <div class="core-grid">
+      <article class="cell action">
+        <div class="c-title">Ympäristön havainnointi</div>
+        <div class="c-sub">data, tapahtumat, jatkuva tilannekuva</div>
+      </article>
+      <article class="cell action">
+        <div class="c-title">Päätöksenteko</div>
+        <div class="c-sub">mallit, säännöt, harkinta</div>
+      </article>
+      <article class="cell action">
+        <div class="c-title">Itsenäinen toiminta</div>
+        <div class="c-sub">toimeenpano, prosessit, agenttien yhteistyö</div>
+      </article>
+    </div>
 
-          <div class="figure">
-            <svg viewBox="0 0 220 520" width="220" height="420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Ihmishahmo agenttimetaforalla">
-              <circle cx="110" cy="62" r="42" fill="white" stroke="#6366f1" stroke-width="2.5"/>
-              <circle cx="96" cy="58" r="5" fill="#0ea5e9" opacity="0.7"/>
-              <circle cx="124" cy="58" r="5" fill="#0ea5e9" opacity="0.7"/>
-              <rect x="102" y="104" width="16" height="18" rx="6" fill="white" stroke="#9ca3af" stroke-width="1.5"/>
-              <path d="M60 135 Q60 122 75 122 L145 122 Q160 122 160 135 L165 290 Q165 310 145 310 L75 310 Q55 310 55 290 Z" fill="white" stroke="#10b981" stroke-width="2" />
-              <line x1="110" y1="130" x2="110" y2="300" stroke="#10b981" stroke-width="2" stroke-dasharray="6 4" opacity="0.7"/>
-              <path d="M100 170 L104 160 L110 172 L116 160 L120 170 Q120 182 110 190 Q100 182 100 170Z" fill="#f59e0b" opacity="0.25" stroke="#f59e0b" stroke-width="1.5"/>
-              <path d="M60 140 Q30 160 22 210 Q18 240 28 270" stroke="#ef4444" stroke-width="2.5" fill="none"/>
-              <path d="M160 140 Q190 160 198 210 Q202 240 192 270" stroke="#ef4444" stroke-width="2.5" fill="none"/>
-              <ellipse cx="72" cy="390" rx="16" ry="8" fill="white" stroke="#9ca3af" stroke-width="1.5"/>
-              <ellipse cx="148" cy="390" rx="16" ry="8" fill="white" stroke="#9ca3af" stroke-width="1.5"/>
-            </svg>
-          </div>
+    <h3 class="core-label core-gap">Ohjaus ja vastuu — millä ehdoilla toimitaan</h3>
+    <div class="core-grid">
+      <article class="cell gov">
+        <div class="c-title">Federaatiomalli</div>
+        <div class="c-sub">toimijat yhdessä, ei organisaatiosiiloja</div>
+      </article>
+      <article class="cell gov">
+        <div class="c-title">Ihminen valvoo ja vastaa</div>
+        <div class="c-sub">virkavastuu, jäljitettävyys, oikeusturva</div>
+      </article>
+      <article class="cell gov">
+        <div class="c-title">Vastuullinen autonomia</div>
+        <div class="c-sub">autonomia rajattuna tehtävään ja oikeuksiin</div>
+      </article>
+    </div>
 
-          <div>
-            <div class="label-card"><div class="t">Omatunto</div><div class="m">Suojaustoimet</div><div class="d">Rajat ja säännöt, joita agentti ei saa ylittää.</div></div>
-            <div class="label-card"><div class="t">Selkäranka</div><div class="m">Päättelyketju</div><div class="d">Vaiheistus: mitä tehdään ensin ja mitä seuraavaksi.</div></div>
-            <div class="label-card"><div class="t">Kädet</div><div class="m">Työkalut ja rajapinnat</div><div class="d">Toimii ulkomaailmassa: hakee tietoa, lähettää viestejä ja käyttää järjestelmiä.</div></div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+  </section>
 
-  <script>
-    function toggleGoal(card) {
-      card.classList.toggle('open');
-    }
+  <!-- ── 5. MAHDOLLISTAJAT ── -->
+  <section class="enablers" aria-labelledby="enablers-title">
 
-    function activatePanel(panelId) {
-      document.querySelectorAll('.panel').forEach((panel) => panel.classList.toggle('active', panel.id === panelId));
-      document.querySelectorAll('.tab-btn').forEach((btn) => btn.classList.toggle('active', btn.dataset.panel === panelId));
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    <!-- A) Kova perusta -->
+    <article class="en-hard">
+      <div class="en-hard-tag">Kova perusta</div>
+      <h3 class="en-hard-title">Digisuvereeni Suomi</h3>
+      <ul class="en-list">
+        <li>Teknologia ja laskenta</li>
+        <li>Turvallinen infrastruktuuri</li>
+        <li>Data ja tietovarannot</li>
+        <li>Rajapinnat ja yhteentoimivuus</li>
+      </ul>
+    </article>
 
-    document.querySelectorAll('.tab-btn, .concept-btn').forEach((btn) => {
-      btn.addEventListener('click', () => activatePanel(btn.dataset.panel));
-    });
-  </script>
+    <!-- B) Pehmeät mahdollistajat -->
+    <div class="en-soft">
+      <article class="en-soft-wrap grn">
+        <div class="en-soft-tag">Pehmeät mahdollistajat</div>
+        <h3 class="en-soft-title">Digitietoisen sääntelyn Suomi</h3>
+        <ul class="en-soft-list">
+          <li>Lainsäädännön uudistaminen</li>
+          <li>Autonomia-asteet ja vastuuketjut</li>
+          <li>Metodit ja pelisäännöt</li>
+          <li>EU AI Act -yhteensopivuus</li>
+          <li>Eettisyys ja oikeusturva</li>
+        </ul>
+      </article>
+      <article class="en-soft-wrap pur">
+        <div class="en-soft-tag">Pehmeät mahdollistajat</div>
+        <h3 class="en-soft-title">Uudistuva Suomi</h3>
+        <ul class="en-soft-list">
+          <li>Osaaminen ja kyvykkyys</li>
+          <li>Muutosjohtaminen</li>
+          <li>Toimintaympäristön uudistus</li>
+          <li>Virkamiesroolin muutos</li>
+          <li>Agenttien johtaminen (AgentOps)</li>
+        </ul>
+      </article>
+    </div>
+
+    <p class="en-note">Mahdollistajat tukevat koko mallia — eivät yksin Agenttista Suomea</p>
+
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <p class="s-text"><em>Agenttinen Suomi</em> on keino saavuttaa strategiset tavoitteet ja rakentaa tulevaa visiota integroidusta tekoäly&#8209;yhteiskunnasta.</p>
+  </footer>
+
+</div>
 </body>
 </html>
