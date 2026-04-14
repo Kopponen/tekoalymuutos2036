@@ -3,10 +3,219 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agenttinen Suomi – Käsiteviitekehys</title>
+<title>Tekoälymuutos 2036 – Konseptikirjasto</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap');
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f3; padding: 32px 16px; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f5f5f3;
+    color: #1f2937;
+    padding: 24px 16px 48px;
+  }
+
+  .site-shell {
+    max-width: 1160px;
+    margin: 0 auto;
+  }
+
+  .site-header {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .site-header h1 {
+    font-size: 20px;
+    color: #111827;
+  }
+
+  .site-header p {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 2px;
+  }
+
+  .concept-nav {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .concept-nav a {
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    background: #f9fafb;
+    color: #374151;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .concept-section {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .concept-heading {
+    margin-bottom: 16px;
+  }
+
+  .concept-heading h2 {
+    font-size: 20px;
+    color: #111827;
+  }
+
+  .concept-heading p {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 4px;
+  }
+
+  /* Tekoälyagentin anatomia */
+  .anatomy-wrap {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .title-area {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .title-area h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    color: #1a1a2e;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+
+  .title-area p {
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+
+  .main-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    position: relative;
+  }
+
+  .labels-left, .labels-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 280px;
+    flex-shrink: 0;
+  }
+
+  .figure-area {
+    width: 320px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .label-card {
+    background: white;
+    border-radius: 14px;
+    padding: 16px 18px;
+    position: relative;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border: 1.5px solid transparent;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+
+  .label-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  }
+
+  .label-card .icon-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .label-card .card-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 2px;
+  }
+
+  .label-card .card-metaphor {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: #1a1a2e;
+    margin-bottom: 4px;
+  }
+
+  .label-card .card-desc {
+    font-size: 12.5px;
+    color: #6b7280;
+    line-height: 1.5;
+  }
+
+  .card-brain { border-color: #6366f1; }
+  .card-brain .icon-badge { background: #eef2ff; color: #6366f1; }
+  .card-brain .card-title { color: #6366f1; }
+  .card-memory { border-color: #8b5cf6; }
+  .card-memory .icon-badge { background: #f5f3ff; color: #8b5cf6; }
+  .card-memory .card-title { color: #8b5cf6; }
+  .card-senses { border-color: #0ea5e9; }
+  .card-senses .icon-badge { background: #f0f9ff; color: #0ea5e9; }
+  .card-senses .card-title { color: #0ea5e9; }
+  .card-guardrails { border-color: #f59e0b; }
+  .card-guardrails .icon-badge { background: #fffbeb; color: #f59e0b; }
+  .card-guardrails .card-title { color: #f59e0b; }
+  .card-spine { border-color: #10b981; }
+  .card-spine .icon-badge { background: #ecfdf5; color: #10b981; }
+  .card-spine .card-title { color: #10b981; }
+  .card-tools { border-color: #ef4444; }
+  .card-tools .icon-badge { background: #fef2f2; color: #ef4444; }
+  .card-tools .card-title { color: #ef4444; }
+
+  svg.human-figure {
+    width: 220px;
+    height: 520px;
+  }
+
+  .footer-note {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 12px;
+    color: #9ca3af;
+    font-style: italic;
+  }
+
+  /* Agenttinen Suomi - käsiteviitekehys */
   .af { padding: 4px 0 24px; max-width: 720px; margin: 0 auto; }
   .af-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: .09em; color: #73726c; margin-bottom: 8px; }
   .af-visio { background: #04342C; border-radius: 12px 12px 0 0; padding: 16px 28px; text-align: center; }
@@ -58,163 +267,304 @@
   .af-ch-warn { font-size: 10px; color: #A32D2D; margin-top: 6px; font-weight: 600; }
   .af-footnote { margin-top: 12px; font-size: 10px; color: #73726c; text-align: center; }
   .af-meta { margin-top: 28px; padding-top: 16px; border-top: 0.5px solid #d3d1c7; font-size: 10px; color: #888780; text-align: right; }
+
+  @media (max-width: 980px) {
+    .main-layout { flex-direction: column; gap: 14px; }
+    .labels-left, .labels-right { width: 100%; max-width: 620px; }
+  }
+
   @media (max-width: 560px) {
-    .af-caps { flex-direction: column; }
-    .af-principles { flex-direction: column; }
+    .af-caps,
+    .af-principles,
     .af-pillars { flex-direction: column; }
     .af-chapters { grid-template-columns: 1fr; }
     .af-found-items { flex-direction: column; gap: 10px; }
+    .site-header { flex-direction: column; align-items: flex-start; }
+    .title-area h1 { font-size: 28px; }
   }
 </style>
 </head>
 <body>
-<div class="af">
+<div class="site-shell">
+  <header class="site-header">
+    <div>
+      <h1>Tekoälymuutos 2036 · Konseptikirjasto</h1>
+      <p>Yksi sivu, useita esitettäviä konsepteja.</p>
+    </div>
+    <nav class="concept-nav" aria-label="Konseptit">
+      <a href="#agenttinen-suomi">Agenttinen Suomi</a>
+      <a href="#tekolyagentin-anatomia">Tekoälyagentin anatomia</a>
+    </nav>
+  </header>
 
-  <div class="af-eyebrow">AGENTTINEN SUOMI — KÄSITEVIITEKEHYS</div>
+  <section id="agenttinen-suomi" class="concept-section">
+    <div class="concept-heading">
+      <h2>Agenttinen Suomi - käsiteviitekehys</h2>
+      <p>Alkuperäinen viitekehys on säilytetty osana sivustoa.</p>
+    </div>
 
-  <div class="af-visio">
-    <div class="af-visio-tag">VISIO 2036</div>
-    <div class="af-visio-title">Integroitu tekoäly-yhteiskunta</div>
-  </div>
+    <div class="af">
+      <div class="af-eyebrow">AGENTTINEN SUOMI — KÄSITEVIITEKEHYS</div>
 
-  <div class="af-innov">
-    <div class="af-innov-title">Digi-innovaatioiden Suomi</div>
-    <div class="af-innov-sub">Palvelut, analytiikka, agentit ja automaatio — hallitusti, turvallisesti ja kansallisesti ohjattuna</div>
-  </div>
-
-  <div class="af-core">
-    <div class="af-core-title">Agenttinen Suomi</div>
-    <div class="af-core-sub">Hallinnon uusi älykäs kerros — kansallinen hajautettu agenttijärjestelmien kokonaisuus</div>
-
-    <div class="af-caps">
-      <div class="af-cap">
-        <div class="af-cap-t">Ympäristön havainnointi</div>
-        <div class="af-cap-s">data, järjestelmät, tapahtumat</div>
+      <div class="af-visio">
+        <div class="af-visio-tag">VISIO 2036</div>
+        <div class="af-visio-title">Integroitu tekoäly-yhteiskunta</div>
       </div>
-      <div class="af-cap">
-        <div class="af-cap-t">Päätöksenteko</div>
-        <div class="af-cap-s">mallit, säännöt, harkinta</div>
+
+      <div class="af-innov">
+        <div class="af-innov-title">Digi-innovaatioiden Suomi</div>
+        <div class="af-innov-sub">Palvelut, analytiikka, agentit ja automaatio — hallitusti, turvallisesti ja kansallisesti ohjattuna</div>
       </div>
-      <div class="af-cap">
-        <div class="af-cap-t">Itsenäinen toiminta</div>
-        <div class="af-cap-s">prosesseissa, järjestelmissä</div>
+
+      <div class="af-core">
+        <div class="af-core-title">Agenttinen Suomi</div>
+        <div class="af-core-sub">Hallinnon uusi älykäs kerros — kansallinen hajautettu agenttijärjestelmien kokonaisuus</div>
+
+        <div class="af-caps">
+          <div class="af-cap">
+            <div class="af-cap-t">Ympäristön havainnointi</div>
+            <div class="af-cap-s">data, järjestelmät, tapahtumat</div>
+          </div>
+          <div class="af-cap">
+            <div class="af-cap-t">Päätöksenteko</div>
+            <div class="af-cap-s">mallit, säännöt, harkinta</div>
+          </div>
+          <div class="af-cap">
+            <div class="af-cap-t">Itsenäinen toiminta</div>
+            <div class="af-cap-s">prosesseissa, järjestelmissä</div>
+          </div>
+        </div>
+
+        <div class="af-principles">
+          <div class="af-pr">
+            <div class="af-pr-t">Federaatiomalli</div>
+            <div class="af-pr-s">organisaatiot toimivat yhdessä, ei organisaatiolähtöisesti</div>
+          </div>
+          <div class="af-pr">
+            <div class="af-pr-t">Ihminen valvoo ja vastaa</div>
+            <div class="af-pr-s">jäljitettävyys, oikeusturva, virkavastuu</div>
+          </div>
+          <div class="af-pr">
+            <div class="af-pr-t">Vastuullinen autonomia</div>
+            <div class="af-pr-s">oikea autonomiataso oikeaan tehtävään</div>
+          </div>
+        </div>
       </div>
+
+      <div class="af-pillars">
+        <div class="af-pillar af-pd">
+          <div class="af-pt">Digisuvereeni Suomi</div>
+          <div class="af-b">• Identiteetti ja valtuutukset (IAM)</div>
+          <div class="af-b">• Kansallinen agenttialusta (PaaS)</div>
+          <div class="af-b">• Infrastruktuuri (IaaS, LUMI)</div>
+          <div class="af-b">• Agenttien hallintapalvelut</div>
+          <div class="af-b">• X-Road · Suomi.fi · Palveluväylä</div>
+        </div>
+        <div class="af-pillar af-pr2">
+          <div class="af-pt">Digitietoisen sääntelyn Suomi</div>
+          <div class="af-b">• Lainsäädännön uudistaminen</div>
+          <div class="af-b">• Autonomia-asteet ja vastuuketjut</div>
+          <div class="af-b">• Metodit ja pelisäännöt</div>
+          <div class="af-b">• EU AI Act -yhteensopivuus</div>
+          <div class="af-b">• Eettisyys ja oikeusturva</div>
+        </div>
+        <div class="af-pillar af-pu">
+          <div class="af-pt">Uudistuva Suomi</div>
+          <div class="af-b">• Osaaminen ja kyvykkyys</div>
+          <div class="af-b">• Muutosjohtaminen</div>
+          <div class="af-b">• Toimintaympäristön uudistus</div>
+          <div class="af-b">• Virkamiesroolin muutos</div>
+          <div class="af-b">• Agenttien johtaminen (AgentOps)</div>
+        </div>
+      </div>
+
+      <div class="af-found">
+        <div class="af-found-t">Kovat mahdollistajat</div>
+        <div class="af-found-items">
+          <div class="af-found-item">
+            <div class="af-fit">Teknologia</div>
+            <div class="af-fis">LUMI AI Factory, CSC</div>
+          </div>
+          <div class="af-found-item">
+            <div class="af-fit">Turvalliset verkot</div>
+            <div class="af-fis">ICT-infrastruktuuri, kyber</div>
+          </div>
+          <div class="af-found-item">
+            <div class="af-fit">Data ja tietovarannot</div>
+            <div class="af-fis">X-Road, rekisterit, rajapinnat</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="af-divider">
+        <div class="af-div-line"></div>
+        <div class="af-div-label">JULKAISUN LUVUT VIITEKEHYKSEEN SIJOITETTUNA</div>
+        <div class="af-div-line"></div>
+      </div>
+
+      <div class="af-chapters">
+        <div class="af-ch">
+          <div class="af-ch-num">Luku 1</div>
+          <div class="af-ch-title">Tekoälyagentit julkisessa hallinnossa</div>
+          <span class="af-ch-tag" style="background:#E1F5EE;color:#085041;">Agenttinen Suomi — ydin</span>
+          <div class="af-ch-desc">Mitä agentit ovat, miten ne eroavat aiemmasta automaatiosta, yhteiskunnallinen merkitys, kansainvälinen kehitys</div>
+        </div>
+        <div class="af-ch">
+          <div class="af-ch-num">Luku 2</div>
+          <div class="af-ch-title">Hyödyt ja hyödyntäminen</div>
+          <span class="af-ch-tag" style="background:#085041;color:#9FE1CB;">Digi-innovaatioiden Suomi</span>
+          <div class="af-ch-desc">Käyttötapaukset, tuottavuus, mittaristo, onnistumisen seuranta, hyvät käytännöt virastoille</div>
+        </div>
+        <div class="af-ch">
+          <div class="af-ch-num">Luku 3</div>
+          <div class="af-ch-title">Teknologia- ja dataperusta</div>
+          <span class="af-ch-tag" style="background:#FAEEDA;color:#633806;">Kovat mahdollistajat</span>
+          <div class="af-ch-desc">Arkkitehtuuriperiaatteet, infrastruktuuri, integraatiokerros, AgentOps, hallinta- ja ohjausmalli</div>
+        </div>
+        <div class="af-ch">
+          <div class="af-ch-num">Luku 4</div>
+          <div class="af-ch-title">Digitaalinen suvereniteetti</div>
+          <span class="af-ch-tag" style="background:#E6F1FB;color:#0C447C;">Digisuvereeni Suomi</span>
+          <div class="af-ch-desc">Teknologia- ja datasuvereniteetti, EU-yhteensopivuus, EuroStack, LUMI AI Factory, riippuvuusanalyysi</div>
+        </div>
+        <div class="af-ch af-ch-gap">
+          <div class="af-ch-num">Luku 5 — puuttuu</div>
+          <div class="af-ch-title">Lainsäädäntö ja sääntelyvalmius</div>
+          <span class="af-ch-tag" style="background:#EAF3DE;color:#27500A;">Digitietoisen sääntelyn Suomi</span>
+          <div class="af-ch-desc">Lainsäädännön uudistus, autonomia-asteet, vastuuketjut, EU AI Act, oikeusturva</div>
+          <div class="af-ch-warn">↳ Tunnistettu puute nykyisessä julkaisussa</div>
+        </div>
+        <div class="af-ch af-ch-gap">
+          <div class="af-ch-num">Luku 6 — puuttuu</div>
+          <div class="af-ch-title">Osaaminen ja muutosjohtaminen</div>
+          <span class="af-ch-tag" style="background:#EEEDFE;color:#3C3489;">Uudistuva Suomi</span>
+          <div class="af-ch-desc">Virkamiesroolin muutos, agenttien johtaminen, osaamistarpeet, muutospolku organisaatioille</div>
+          <div class="af-ch-warn">↳ Tunnistettu puute nykyisessä julkaisussa</div>
+        </div>
+      </div>
+
+      <div class="af-footnote">Katkoviivareunus = tunnistettu aukko nykyisessä julkaisurakenteessa</div>
+
+      <div class="af-meta">
+        Tekoälymuutos 2036 · Ministeriöiden generatiivisen tekoälyn yhteistyöryhmä · Valtiovarainministeriö
+      </div>
+    </div>
+  </section>
+
+  <section id="tekolyagentin-anatomia" class="concept-section">
+    <div class="concept-heading">
+      <h2>Tekoälyagentin anatomia</h2>
+      <p>Uusi visualisointi eri yhteyksissä ja esityksissä käytettäväksi.</p>
     </div>
 
-    <div class="af-principles">
-      <div class="af-pr">
-        <div class="af-pr-t">Federaatiomalli</div>
-        <div class="af-pr-s">organisaatiot toimivat yhdessä, ei organisaatiolähtöisesti</div>
+    <div class="anatomy-wrap">
+      <div class="title-area">
+        <h1>Tekoälyagentin anatomia</h1>
+        <p>Agentin osat ihmismetaforan kautta</p>
       </div>
-      <div class="af-pr">
-        <div class="af-pr-t">Ihminen valvoo ja vastaa</div>
-        <div class="af-pr-s">jäljitettävyys, oikeusturva, virkavastuu</div>
+
+      <div class="main-layout">
+        <div class="labels-left">
+          <div class="label-card card-brain">
+            <div class="icon-badge">🧠</div>
+            <div class="card-title">Aivot</div>
+            <div class="card-metaphor">Kielimalli</div>
+            <div class="card-desc">Ymmärtää tehtävän, päättelee ja tuottaa vastauksen. Agentin ajattelukyky.</div>
+          </div>
+
+          <div class="label-card card-memory">
+            <div class="icon-badge">💭</div>
+            <div class="card-title">Muisti</div>
+            <div class="card-metaphor">Konteksti-ikkuna ja tietovarannot</div>
+            <div class="card-desc">Lyhytkestoinen työmuisti (keskusteluhistoria) ja pitkäkestoinen muisti (tietokannat, dokumentit).</div>
+          </div>
+
+          <div class="label-card card-senses">
+            <div class="icon-badge">👁</div>
+            <div class="card-title">Aistit</div>
+            <div class="card-metaphor">Sensorit ja syötteet</div>
+            <div class="card-desc">Vastaanottaa tietoa ympäristöstä: tekstiä, kuvia, dataa, API-kutsuja ja käyttäjän ohjeita.</div>
+          </div>
+        </div>
+
+        <div class="figure-area">
+          <svg class="human-figure" viewBox="0 0 220 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="glow" cx="50%" cy="35%" r="45%">
+                <stop offset="0%" stop-color="#6366f1" stop-opacity="0.07"/>
+                <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+
+            <ellipse cx="110" cy="200" rx="100" ry="180" fill="url(#glow)"/>
+            <circle cx="110" cy="62" r="42" fill="white" stroke="#6366f1" stroke-width="2.5"/>
+            <path d="M92 52 Q98 42 110 45 Q122 42 128 52" stroke="#6366f1" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+            <path d="M88 62 Q98 55 110 58 Q122 55 132 62" stroke="#6366f1" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.4"/>
+            <path d="M92 72 Q100 66 110 68 Q120 66 128 72" stroke="#6366f1" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.3"/>
+            <circle cx="96" cy="58" r="5" fill="#0ea5e9" opacity="0.7"/>
+            <circle cx="124" cy="58" r="5" fill="#0ea5e9" opacity="0.7"/>
+            <circle cx="96" cy="57" r="2" fill="white"/>
+            <circle cx="124" cy="57" r="2" fill="white"/>
+            <rect x="102" y="104" width="16" height="18" rx="6" fill="white" stroke="#9ca3af" stroke-width="1.5"/>
+            <path d="M60 135 Q60 122 75 122 L145 122 Q160 122 160 135 L165 290 Q165 310 145 310 L75 310 Q55 310 55 290 Z" fill="white" stroke="#10b981" stroke-width="2"/>
+            <line x1="110" y1="130" x2="110" y2="300" stroke="#10b981" stroke-width="2" stroke-dasharray="6 4" opacity="0.6"/>
+            <circle cx="110" cy="150" r="4" fill="#10b981" opacity="0.5"/>
+            <circle cx="110" cy="190" r="4" fill="#10b981" opacity="0.5"/>
+            <circle cx="110" cy="230" r="4" fill="#10b981" opacity="0.5"/>
+            <circle cx="110" cy="270" r="4" fill="#10b981" opacity="0.5"/>
+            <path d="M100 170 L104 160 L110 172 L116 160 L120 170 Q120 182 110 190 Q100 182 100 170Z" fill="#f59e0b" opacity="0.25" stroke="#f59e0b" stroke-width="1.5"/>
+            <path d="M60 140 Q30 160 22 210 Q18 240 28 270" stroke="#ef4444" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <circle cx="28" cy="272" r="14" fill="white" stroke="#ef4444" stroke-width="2"/>
+            <path d="M22 268 L34 278 M34 268 L22 278" stroke="#ef4444" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+            <path d="M160 140 Q190 160 198 210 Q202 240 192 270" stroke="#ef4444" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <circle cx="192" cy="272" r="14" fill="white" stroke="#ef4444" stroke-width="2"/>
+            <circle cx="192" cy="272" r="6" fill="none" stroke="#ef4444" stroke-width="1.5" opacity="0.5"/>
+            <circle cx="192" cy="272" r="2.5" fill="#ef4444" opacity="0.4"/>
+            <path d="M80 305 Q75 370 78 420 Q80 450 75 475" stroke="#9ca3af" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <ellipse cx="72" cy="480" rx="16" ry="8" fill="white" stroke="#9ca3af" stroke-width="1.5"/>
+            <path d="M140 305 Q145 370 142 420 Q140 450 145 475" stroke="#9ca3af" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <ellipse cx="148" cy="480" rx="16" ry="8" fill="white" stroke="#9ca3af" stroke-width="1.5"/>
+            <ellipse cx="110" cy="25" rx="22" ry="10" fill="white" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/>
+            <circle cx="68" cy="55" r="3" fill="#6366f1" opacity="0.4"/>
+            <circle cx="75" cy="25" r="3" fill="#8b5cf6" opacity="0.4"/>
+            <circle cx="78" cy="58" r="3" fill="#0ea5e9" opacity="0.4"/>
+            <circle cx="152" cy="175" r="3" fill="#f59e0b" opacity="0.4"/>
+            <circle cx="148" cy="230" r="3" fill="#10b981" opacity="0.4"/>
+            <circle cx="192" cy="255" r="3" fill="#ef4444" opacity="0.4"/>
+            <rect x="62" y="500" width="96" height="18" rx="9" fill="#1a1a2e" opacity="0.08"/>
+            <text x="110" y="513" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#6b7280" font-weight="600">TEHTÄVÄNANTO</text>
+          </svg>
+        </div>
+
+        <div class="labels-right">
+          <div class="label-card card-guardrails">
+            <div class="icon-badge">🛡</div>
+            <div class="card-title">Omatunto</div>
+            <div class="card-metaphor">Suojaustoimet</div>
+            <div class="card-desc">Rajat ja säännöt, joita agentti ei saa ylittää. Estää vahingolliset tai luvattomat toimet.</div>
+          </div>
+
+          <div class="label-card card-spine">
+            <div class="icon-badge">⚡</div>
+            <div class="card-title">Selkäranka</div>
+            <div class="card-metaphor">Päättelyketju</div>
+            <div class="card-desc">Ohjaa vaihe vaiheelta: mitä tehdään ensin, mitä seuraavaksi. Agentin sisäinen logiikka.</div>
+          </div>
+
+          <div class="label-card card-tools">
+            <div class="icon-badge">🤲</div>
+            <div class="card-title">Kädet</div>
+            <div class="card-metaphor">Työkalut ja rajapinnat</div>
+            <div class="card-desc">Tekee asioita ulkomaailmassa: hakee tietoa, lähettää viestejä, täyttää lomakkeita, käyttää järjestelmiä.</div>
+          </div>
+        </div>
       </div>
-      <div class="af-pr">
-        <div class="af-pr-t">Vastuullinen autonomia</div>
-        <div class="af-pr-s">oikea autonomiataso oikeaan tehtävään</div>
+
+      <div class="footer-note">
+        Tekoälyagentti ei ole ihminen — metafora auttaa ymmärtämään, miten osat toimivat yhdessä.
       </div>
     </div>
-  </div>
-
-  <div class="af-pillars">
-    <div class="af-pillar af-pd">
-      <div class="af-pt">Digisuvereeni Suomi</div>
-      <div class="af-b">• Identiteetti ja valtuutukset (IAM)</div>
-      <div class="af-b">• Kansallinen agenttialusta (PaaS)</div>
-      <div class="af-b">• Infrastruktuuri (IaaS, LUMI)</div>
-      <div class="af-b">• Agenttien hallintapalvelut</div>
-      <div class="af-b">• X-Road · Suomi.fi · Palveluväylä</div>
-    </div>
-    <div class="af-pillar af-pr2">
-      <div class="af-pt">Digitietoisen sääntelyn Suomi</div>
-      <div class="af-b">• Lainsäädännön uudistaminen</div>
-      <div class="af-b">• Autonomia-asteet ja vastuuketjut</div>
-      <div class="af-b">• Metodit ja pelisäännöt</div>
-      <div class="af-b">• EU AI Act -yhteensopivuus</div>
-      <div class="af-b">• Eettisyys ja oikeusturva</div>
-    </div>
-    <div class="af-pillar af-pu">
-      <div class="af-pt">Uudistuva Suomi</div>
-      <div class="af-b">• Osaaminen ja kyvykkyys</div>
-      <div class="af-b">• Muutosjohtaminen</div>
-      <div class="af-b">• Toimintaympäristön uudistus</div>
-      <div class="af-b">• Virkamiesroolin muutos</div>
-      <div class="af-b">• Agenttien johtaminen (AgentOps)</div>
-    </div>
-  </div>
-
-  <div class="af-found">
-    <div class="af-found-t">Kovat mahdollistajat</div>
-    <div class="af-found-items">
-      <div class="af-found-item">
-        <div class="af-fit">Teknologia</div>
-        <div class="af-fis">LUMI AI Factory, CSC</div>
-      </div>
-      <div class="af-found-item">
-        <div class="af-fit">Turvalliset verkot</div>
-        <div class="af-fis">ICT-infrastruktuuri, kyber</div>
-      </div>
-      <div class="af-found-item">
-        <div class="af-fit">Data ja tietovarannot</div>
-        <div class="af-fis">X-Road, rekisterit, rajapinnat</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="af-divider">
-    <div class="af-div-line"></div>
-    <div class="af-div-label">JULKAISUN LUVUT VIITEKEHYKSEEN SIJOITETTUNA</div>
-    <div class="af-div-line"></div>
-  </div>
-
-  <div class="af-chapters">
-    <div class="af-ch">
-      <div class="af-ch-num">Luku 1</div>
-      <div class="af-ch-title">Tekoälyagentit julkisessa hallinnossa</div>
-      <span class="af-ch-tag" style="background:#E1F5EE;color:#085041;">Agenttinen Suomi — ydin</span>
-      <div class="af-ch-desc">Mitä agentit ovat, miten ne eroavat aiemmasta automaatiosta, yhteiskunnallinen merkitys, kansainvälinen kehitys</div>
-    </div>
-    <div class="af-ch">
-      <div class="af-ch-num">Luku 2</div>
-      <div class="af-ch-title">Hyödyt ja hyödyntäminen</div>
-      <span class="af-ch-tag" style="background:#085041;color:#9FE1CB;">Digi-innovaatioiden Suomi</span>
-      <div class="af-ch-desc">Käyttötapaukset, tuottavuus, mittaristo, onnistumisen seuranta, hyvät käytännöt virastoille</div>
-    </div>
-    <div class="af-ch">
-      <div class="af-ch-num">Luku 3</div>
-      <div class="af-ch-title">Teknologia- ja dataperusta</div>
-      <span class="af-ch-tag" style="background:#FAEEDA;color:#633806;">Kovat mahdollistajat</span>
-      <div class="af-ch-desc">Arkkitehtuuriperiaatteet, infrastruktuuri, integraatiokerros, AgentOps, hallinta- ja ohjausmalli</div>
-    </div>
-    <div class="af-ch">
-      <div class="af-ch-num">Luku 4</div>
-      <div class="af-ch-title">Digitaalinen suvereniteetti</div>
-      <span class="af-ch-tag" style="background:#E6F1FB;color:#0C447C;">Digisuvereeni Suomi</span>
-      <div class="af-ch-desc">Teknologia- ja datasuvereniteetti, EU-yhteensopivuus, EuroStack, LUMI AI Factory, riippuvuusanalyysi</div>
-    </div>
-    <div class="af-ch af-ch-gap">
-      <div class="af-ch-num">Luku 5 — puuttuu</div>
-      <div class="af-ch-title">Lainsäädäntö ja sääntelyvalmius</div>
-      <span class="af-ch-tag" style="background:#EAF3DE;color:#27500A;">Digitietoisen sääntelyn Suomi</span>
-      <div class="af-ch-desc">Lainsäädännön uudistus, autonomia-asteet, vastuuketjut, EU AI Act, oikeusturva</div>
-      <div class="af-ch-warn">↳ Tunnistettu puute nykyisessä julkaisussa</div>
-    </div>
-    <div class="af-ch af-ch-gap">
-      <div class="af-ch-num">Luku 6 — puuttuu</div>
-      <div class="af-ch-title">Osaaminen ja muutosjohtaminen</div>
-      <span class="af-ch-tag" style="background:#EEEDFE;color:#3C3489;">Uudistuva Suomi</span>
-      <div class="af-ch-desc">Virkamiesroolin muutos, agenttien johtaminen, osaamistarpeet, muutospolku organisaatioille</div>
-      <div class="af-ch-warn">↳ Tunnistettu puute nykyisessä julkaisussa</div>
-    </div>
-  </div>
-
-  <div class="af-footnote">Katkoviivareunus = tunnistettu aukko nykyisessä julkaisurakenteessa</div>
-
-  <div class="af-meta">
-    Tekoälymuutos 2036 · Ministeriöiden generatiivisen tekoälyn yhteistyöryhmä · Valtiovarainministeriö
-  </div>
-
+  </section>
 </div>
 </body>
 </html>
